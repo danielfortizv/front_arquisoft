@@ -1,0 +1,12 @@
+{% extends 'escalabilidad/base.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-4">Lista de Pacientes</h1>
+    <div class="list-group">
+        {% for paciente in pacientes %}
+            <a href="{% url 'perfil_paciente' paciente.cedula %}" class="list-group-item list-group-item-action">
+                {{ paciente.nombre }} - {{ paciente.cedula }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eventos</title>
+</head>
+<body>
+    <h1>Lista de Eventos</h1>
+    <ul>
+        {% for evento in eventos %}
+            <li>{{ evento.nombre }} - {{ evento.fecha }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

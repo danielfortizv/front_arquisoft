@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Escalabilidad - Consultar Exámenes MRI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Eventos Cargados desde el Backend</h1>
+        
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        
+        <ul class="list-group">
+            {% if eventos %}
+                {% for evento in eventos %}
+                    <li class="list-group-item">ID: {{ evento.id }} - Nombre: {{ evento.nombre }}</li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item">No se encontraron eventos o hay un error en la conexión.</li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>

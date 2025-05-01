@@ -1,0 +1,12 @@
+{% extends 'escalabilidad/base.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-4">Exámenes MRI para Paciente {{ paciente_id }}</h1>
+    <ul class="list-group">
+        {% for examen in examenes %}
+            <li class="list-group-item">
+                <a href="{% url 'ver_mri' paciente_id examen.id %}" class="text-decoration-none">{{ examen.archivo }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
