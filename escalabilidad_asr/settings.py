@@ -60,9 +60,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'escalabilidad.middleware.LoginRequiredMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
+SESSION_COOKIE_AGE = 86400  # 24 hours in seconds
+SESSION_SAVE_EVERY_REQUEST = True
 ROOT_URLCONF = 'escalabilidad_asr.urls'
 
 TEMPLATES = [
@@ -76,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'escalabilidad.context_processors.user_data',
             ],
         },
     },

@@ -1,0 +1,150 @@
+{% extends 'escalabilidad/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Sistema Médico{% endblock %}
+
+{% block extra_css %}
+<style>
+    .welcome-card {
+        background-color: #f8f9fa;
+        border-left: 4px solid #3498db;
+        margin-bottom: 20px;
+    }
+    .stats-card {
+        transition: transform 0.3s;
+    }
+    .stats-card:hover {
+        transform: translateY(-5px);
+    }
+    .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #3498db;
+    }
+    .card-counter {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card welcome-card p-4 mb-4">
+    <h2>Bienvenido, {{ user_data.nombre }}</h2>
+    <p class="text-muted">{{ user_data.rol }} | {{ user_data.email }}</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card stats-card text-center p-4 mb-4">
+            <div class="card-body">
+                <i class="fas fa-users card-icon"></i>
+                <h5 class="card-title">Pacientes</h5>
+                <p class="card-counter">{{ pacientes|length }}</p>
+                <a href="{% url 'index' %}" class="btn btn-outline-primary">Ver todos</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card stats-card text-center p-4 mb-4">
+            <div class="card-body">
+                <i class="fas fa-calendar-alt card-icon"></i>
+                <h5 class="card-title">Eventos</h5>
+                <p class="card-counter">{{ eventos|length }}</p>
+                <a href="{% url 'obtener_eventos' %}" class="btn btn-outline-primary">Ver todos</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card stats-card text-center p-4 mb-4">
+            <div class="card-body">
+                <i class="fas fa-brain card-icon"></i>
+                <h5 class="card-title">Exámenes MRI</h5>
+                <p class="card-counter">--</p>
+                <a href="#" class="btn btn-outline-primary">Ver exámenes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Pacientes recientes</h5>
+                <a href="{% url 'index' %}" class="btn btn-sm btn-primary">Ver todos</a>
+            </div>
+            <div class="card-body">
+                {% if pacientes %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Cédula</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for paciente in pacientes|slice:":5" %}
+                            <tr>
+                                <td>{{ paciente.cedula }}</td>
+                                <td>{{ paciente.nombre }}</td>
+                                <td>{{ paciente.email }}</td>
+                                <td>
+                                    <a href="{% url 'perfil_paciente' paciente.cedula %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted text-center py-3">No hay pacientes disponibles.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Información de usuario</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Nombre:</strong>
+                        <span>{{ user_data.nombre }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Usuario:</strong>
+                        <span>{{ user_data.username }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Cédula:</strong>
+                        <span>{{ user_data.cedula }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Rol:</strong>
+                        <span class="badge bg-primary rounded-pill">{{ user_data.rol }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Email:</strong>
+                        <span>{{ user_data.email }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Teléfono:</strong>
+                        <span>{{ user_data.telefono }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
