@@ -1,12 +1,22 @@
-{% extends 'escalabilidad/base.html' %}
+{# escalabilidad/templates/escalabilidad/examenes_mri.html #}
+{% extends "escalabilidad/base.html" %}
 
 {% block content %}
-    <h1 class="text-center mb-4">Exámenes MRI para Paciente {{ paciente_id }}</h1>
-    <ul class="list-group">
-        {% for examen in examenes %}
-            <li class="list-group-item">
-                <a href="{% url 'ver_mri' paciente_id examen.id %}" class="text-decoration-none">{{ examen.archivo }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+<h1 class="mb-4">Exámenes MRI del paciente {{ paciente_id }}</h1>
+
+{% for examen in examenes %}
+<div class="card mb-3">
+    <div class="card-header">Examen #{{ examen.id }}</div>
+    <div class="card-body text-center">
+        {% if examen.png %}
+            <img src="{{ MEDIA_URL }}{{ examen.png }}" class="img-fluid"
+                 alt="Slice central MRI #{{ examen.id }}">
+        {% else %}
+            <div class="alert alert-warning">No se pudo generar la imagen.</div>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+<div class="alert alert-info">No se encontró ningún examen.</div>
+{% endfor %}
 {% endblock %}

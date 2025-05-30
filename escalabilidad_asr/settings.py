@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,9 +29,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+PACIENTES_API = "http://34.136.217.155:8000/historias/"
+EXAMENES_API  = "http://104.199.116.78:8000/examenes/paciente/"
 
 
 if DEBUG:
@@ -46,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_prometheus',
-    'escalabilidad',
     'corsheaders',
 ]
 
@@ -62,10 +63,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'escalabilidad.middleware.LoginRequiredMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
+    'escalabilidad.middleware.TokenMiddleware',
 ]
 
 SESSION_COOKIE_AGE = 86400  # 24 hours in seconds
 SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 ROOT_URLCONF = 'escalabilidad_asr.urls'
 
 TEMPLATES = [

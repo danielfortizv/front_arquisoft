@@ -1,0 +1,18 @@
+{% extends "escalabilidad/base.html" %}
+
+{% block content %}
+<h1 class="text-center mb-4">Pacientes con exámenes MRI</h1>
+
+{% if pacientes %}
+  <div class="list-group">
+    {% for p in pacientes %}
+      <a href="{% url 'examenes_mri' p.numeroDocumento %}"
+         class="list-group-item list-group-item-action">
+        {{ p.nombre }} – {{ p.numeroDocumento }}
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="alert alert-info text-center">No se encontró ningún examen.</p>
+{% endif %}
+{% endblock %}

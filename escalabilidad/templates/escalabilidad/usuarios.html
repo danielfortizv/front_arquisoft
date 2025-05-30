@@ -1,0 +1,33 @@
+{% extends 'escalabilidad/base.html' %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">Usuarios</h1>
+
+{% if usuarios %}
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Usuario</th><th>Nombre</th><th>Rol</th>
+        <th>Cédula</th><th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in usuarios %}
+      <tr>
+        <td>{{ u.usuario }}</td>
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.rol }}</td>
+        <td>{{ u.cedula }}</td>
+        <td>{{ u.email }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="text-muted text-center">No se encontraron usuarios.</p>
+{% endif %}
+{% endblock %}

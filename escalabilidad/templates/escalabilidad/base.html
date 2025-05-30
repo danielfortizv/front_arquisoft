@@ -21,9 +21,6 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'index' %}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'escalabilidad' in request.path %}active{% endif %}" href="{% url 'escalabilidad' %}">Escalabilidad</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if request.session.usuario %}

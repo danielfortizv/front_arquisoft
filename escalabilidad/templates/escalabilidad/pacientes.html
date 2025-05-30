@@ -1,0 +1,15 @@
+{% extends 'escalabilidad/base.html' %}
+{% block title %}Pacientes{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Pacientes</h1>
+<div class="list-group">
+  {% for p in pacientes %}
+    <a href="{% url 'perfil_paciente' p.cedula %}"
+       class="list-group-item list-group-item-action">
+        {{ p.nombre }} – {{ p.cedula }}
+    </a>
+  {% empty %}
+    <p class="text-muted text-center">No hay pacientes.</p>
+  {% endfor %}
+</div>
+{% endblock %}

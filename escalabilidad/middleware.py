@@ -18,3 +18,20 @@ class LoginRequiredMiddleware:
             return redirect('login')
         
         return self.get_response(request)
+    
+
+class TokenMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # Permitir acceso al login sin token
+        if request.path in ['/login/', '/']:
+            return self.get_response(request)
+        
+        # Verificar si hay token
+        token = request.session.get('token')
+        if not token:
+            return redirect('login')  # Ajusta a la URL de login
+
+        return self.get_response(request)
